@@ -1,25 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Navbar from './components/Navbar';
+import Header from './components/Header';
+import Container from './components/Container';
+import { type } from 'os';
 
-class App extends Component {
+type MyProps = {}
+type MyState = {
+  theme: string
+}
+class App extends Component<MyProps, MyState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      theme: "light"
+    }
+    this.handleThemeClick = this.handleThemeClick.bind(this);
+  }
+
+  handleThemeClick() {
+    let theme;
+    if (this.state.theme === "light") {
+      theme = "dark";
+    } else {
+      theme = "light";
+    }
+    this.setState({
+      theme: theme
+    });
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="">
+        <Navbar theme={this.state.theme} onClick={this.handleThemeClick} />
+        <Header theme={this.state.theme} />
+        <Container theme={this.state.theme} />
       </div>
     );
   }
